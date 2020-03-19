@@ -1,0 +1,98 @@
+.card-columns {
+    @include media-breakpoint-only(lg) {
+      column-count: 4;
+    }
+    @include media-breakpoint-only(xl) {
+      column-count: 5;
+    }
+  }
+  .author-card{
+    font-size: smaller;
+      max-width: 25%;
+      padding: 0px;
+      margin: 2%;
+  }
+  .btn-row{
+      justify-content: center;
+      padding-top: 5%;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  .modal-main {
+    position:fixed;
+    background: white;
+    width: 80%;
+    height: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+  }
+  
+  .display-show {
+    display: block;
+  }
+  
+  
+  .display-none {
+    display: none;
+  }
+
+  .authorFormCard{
+    
+    padding: 10px;
+    margin: 10px;
+    border: .3666px solid #114722;
+
+    border-radius: 6.333%;
+    box-shadow:0px 0px 2.5px #40833B;
+    /* filter: drop-shadow(0px 0px 2.5px rgba(54, 31, 70, 1)); */
+  }
+  a.author-delete-btn {
+    font-size: x-large;
+    float: right !important;
+    color: tomato;
+  }
+
+  .blog-card{
+    font-size: smaller;
+    max-width: 25%;
+    padding: 0px;
+    margin: 2%;
+  }
+  
+
+  .blogFormCard{
+    padding: 10px;
+    margin: 10px;
+    border: .3666px solid #114722;
+
+    border-radius: 6.333%;
+    box-shadow:0px 0px 2.5px #40833B;
+  }
+.person-card-container{
+  display: flex;
+  flex-wrap: nowrap;
+
+}
+  .person-card{
+    font-weight: 700;
+    color: #40833B;
+    background-color: rgb(207, 197, 197, .888);
+    padding: 0px;
+    margin: 2%;
+  }
+  .person-card-img-overlay{
+    padding: 0% !important;
+  }
+
+  .person-form-card{
+    background-color: rgb(133, 139, 150, 0.85);
+  }
