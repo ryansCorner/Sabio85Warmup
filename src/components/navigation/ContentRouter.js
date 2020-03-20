@@ -18,7 +18,7 @@ const ContentRouter = props => {
         <React.Fragment>
             <div className='container-fluid content-router'>
                 {/* <Route path='/home' component={Home} /> */}
-                <Route exact path='/'
+                <Route exact path='/blogsHome'
                     render={props => <BlogsHome {...props} />} />
                 <Route exact path='/personHome'
                     render={props => <PersonHome {...props} />} />

@@ -46,7 +46,7 @@ class AuthorHome extends React.Component {
         this.baseState = this.state
     }
 
-    onAuthorProfileClick = evt => {
+    onGetBlogsForAuthorClick = evt => {
         const target = evt.target.name
         AuthorService.getBlogsForAuthor(target, this.onGetAuthorBlogsSuccess, this.onGetAuthorBlogsError)
     }
@@ -401,8 +401,7 @@ class AuthorHome extends React.Component {
             <React.Fragment>
                 {this.state.displayedAuthors && !this.state.profileClick && (
                     <div className='row'>
-
-                        <div className='col-5'>
+                        <div className='col-4'>
                             <div className='authorFormCard'>
                                 <h6 className='card-header'>
                                     Create Author
@@ -440,17 +439,17 @@ class AuthorHome extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className='col-auto'>
-                            <div className='row'>
-                                <div className='person-card-container card-deck'>
+                        <div className='col-8'>
+                            <div className='row row-cols-3 row-cols-md-3'>
 
-                                    <AuthorCards
-                                        onDeleteClicked={this.onDeleteClicked}
-                                        authors={this.state.displayedAuthors}
-                                        onProfileClick={this.onAuthorProfileClick}
-                                        onClick={this.onGetAuthorProfileClick} />
+                                <AuthorCards
 
-                                </div>
+                                    onDeleteClicked={this.onDeleteClicked}
+                                    authors={this.state.displayedAuthors}
+                                    onGetBlogsForAuthorClick={this.onGetBlogsForAuthorClick}
+                                    onGetAuthorProfileClick={this.onGetAuthorProfileClick}
+                                />
+
                             </div>
                             <div className='btn-row row'>
                                 <PageButtons
@@ -462,15 +461,18 @@ class AuthorHome extends React.Component {
                             </div>
                         </div>
                     </div>
-                )}
-                {this.state.displayedAuthors && this.state.profileClick && (
-                    <AuthorProfile
-                        blogs={this.state.targetAuthorBlogs}
-                        firstName={this.state.firstNameUpdate}
-                        lastName={this.state.lastNameUpdate}
-                    />
-                )}
-                {/* {this.state.show && (
+                )
+                }
+                {
+                    this.state.displayedAuthors && this.state.profileClick && (
+                        <AuthorProfile
+                            blogs={this.state.targetAuthorBlogs}
+                            firstName={this.state.firstNameUpdate}
+                            lastName={this.state.lastNameUpdate}
+                        />
+                    )
+                }
+                {this.state.show && (
                     <AuthorModal
                         {...this.state}
                         onKeyDown={this.onKeyDown}
@@ -501,9 +503,9 @@ class AuthorHome extends React.Component {
                         onUpdateClick={this.onAuthorUpdateClicked}
                     />
                 )
-                } */}
+                }
 
-            </React.Fragment>
+            </React.Fragment >
         )
     }
 }

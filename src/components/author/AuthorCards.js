@@ -8,7 +8,7 @@ import {
 
 
 // <Card>
-//     <CardImg top width="100%" src={(author.id % 2 === 0 ? "https://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png" : 'https://img.pngio.com/person-icon-png-download-10241024-free-transparent-avatar-png-png-avatar-900_900.jpg')} alt="Card image cap" />
+//     <CardImg top width="100%" src={(author.id % 2 === 0 ? "https://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png" : 'https://img.pngio.com/author-icon-png-download-10241024-free-transparent-avatar-png-png-avatar-900_900.jpg')} alt="Card image cap" />
 //     <CardImgOverlay>
 //         <Button name={author.id} className='author-delete-btn' data-toggle="modal" data-target=".bd-example-modal-sm" onClick={props.onDeleteClicked}><Delete /></Button>
 //     </CardImgOverlay>
@@ -28,30 +28,33 @@ const AuthorCards = props => {
     const mappedAuths = props.authors.map((author, idx) => {
         var date = new Date(author.dateCreated)
         var dateShown = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(date)
-        return <React.Fragment>
-            <div>
-                <div className="card person-card h-100">
-                    <img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/1024/batman-icon.png"
-                        className="card-img-top" alt="..." />
-                    <div className="person-card-img-overlay card-img-overlay">
-                        <div className='row'>
-                            <div className='col-9'>
-
-                                <p className='card-text text-left'>{author.firstName} {author.lastName}</p>
-                            </div>
-                            <div className='col-3'>
-
-                                <a className='author-delete-btn text-right' onClick={props.onDeleteClicked}><Delete /></a>
-                            </div>
-                        </div>
-                        <div className='row'>
-
-                            <a className='card-text text-left'><Edit /></a>
-                        </div>
+        return <React.Fragment> <div className='col mb-6'>
+            <div class="card person-card w-75 h-75 mb-4">
+                <img src={author.medium ? author.medium : 'https://thenypost.files.wordpress.com/2020/01/derek-jeter-8.jpg?quality=80&strip=all'}
+                    className="card-img-top w-100 h-100"
+                    style={{ backgroundColor: '#5A7769 !important', opacity: "0.88" }}
+                    alt="..." />
+                <div class="card-img-overlay person-card-img-overlay">
+                    <div class="card-body person-card-body w-100 h-100">
+                        <p className='card-text cust-card-header text-left' >
+                            {author.firstName} {author.lastName}
+                        </p>
                     </div>
                 </div>
+                <div class="btn-group" role="group"
+                    style={{ backgroundColor: "rgb(207, 197, 197, .888)" }} aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-primary"
+                        name={author.id} onClick={props.onGetAuthorProfileClick}>EDIT
+                        </button>
+                    <button type="button" class="btn btn-outline-danger"
+                        name={author.id} onClick={props.onDeleteClicked}>DELETE
+                        </button>
+                </div>
             </div>
-        </React.Fragment>
+        </div>
+
+
+        </React.Fragment >
     })
 
     return (

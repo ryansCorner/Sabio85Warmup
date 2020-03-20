@@ -62,7 +62,7 @@ const update = (id, payload, onSuccess, onError) => {
 const remove = (payload, onSuccess, onError) => {
     const config = {
         method: "Delete",
-        url: `https://localhost:50001/api/person${payload}`,
+        url: `https://localhost:50001/api/person/${payload}`,
         data: payload,
         withCredentials: true,
         crossdomain: true,
@@ -117,4 +117,6 @@ const updateFull = (id, payload, onSuccess, onError) => {
         .then(response => onSuccess(response))
         .catch(err => onError(err))
 }
+
+
 export { insert, getById, getAllPages, update, updateFull, remove, kitchenSinkAll, kitchenSinkId }

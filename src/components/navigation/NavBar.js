@@ -18,11 +18,15 @@ const NavBar = props => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <Link to='/authorHome'>  <li className="nav-item active">
-                            <a className="nav-link nav-text" href="#">Authors <span className="sr-only">(current)</span></a>
+                            <a className="nav-link nav-text" href="loggedIn/">Authors <span className="sr-only">(current)</span></a>
                         </li>
                         </Link>
                         <Link to='/personHome'>    <li className="nav-item">
                             <a className="nav-link nav-text" href="#">People</a>
+                        </li>
+                        </Link>
+                        <Link to='/blogsHome'>    <li className="nav-item">
+                            <a className="nav-link nav-text" href="#">Blogs</a>
                         </li>
                         </Link>
                         <li className="nav-item">

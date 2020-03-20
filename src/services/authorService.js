@@ -95,7 +95,7 @@ const getBlogsForAuthor = (id, onSuccess, onError) => {
         headers: { "Content-Type": "application/json" }
     }
     return axios(config)
-        .then(resp => onSuccess(resp))
+        .then(resp => onSuccess(resp.data.value.item))
         .catch(err => onError(err))
 }
 

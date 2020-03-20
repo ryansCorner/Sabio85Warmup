@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router'
 import * as blogService from '../../services/blog/blogService'
+import * as authorService from '../../services/authorService'
 import BlogCard from './card/BlogCard'
 import PageButtons from '../common/PageButtons'
 import BlogForm from './form/BlogForm'
@@ -24,7 +25,7 @@ class BlogsHome extends React.Component {
             formValid: false,
             showErrors: false,
             pageIndex: 0,
-            pageSize: 7,
+            pageSize: 9,
             displayedBlogs: [],
             hasNextPage: false,
             hasPreviousPage: false,
@@ -131,7 +132,17 @@ class BlogsHome extends React.Component {
     onGetBlogById = evt => {
         console.log('evt.target.name', evt.target.name)
         const id = evt.target.name
+        const authId = evt.target.id
+        console.log('evt.target.id', evt.target.id)
         blogService.getById(id, this.getByIdSuccess, this.getByIdError)
+        authorService.getBlogsForAuthor(authId, this.onBlogAuthSuccess, this.onBlogAuthError)
+
+    }
+    onBlogAuthSuccess = resp => {
+        console.log("all blogs written by this author: ", resp)
+    }
+    onBlogAuthError = err => {
+        console.log('could not get all blogs written by this author : ', err)
     }
 
     getByIdSuccess = resp => {
@@ -191,52 +202,46 @@ class BlogsHome extends React.Component {
         console.log(this.state)
         return (
             <React.Fragment>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-7'>
-                            <div className='blogFormCard'>
-                                <h6 className='card-header'>
-                                    Create Blog
-                </h6>
-                                <div className='card-body'>
-                                    <FormErrors
-                                        formErrors={this.state.formErrors}
-                                    />
-                                    <BlogForm
-                                        {...this.state}
-                                        TitleValid={
-                                            this.state.TitleValid
-                                            || !this.state.showErrors
-                                        }
-                                        ContentValid={
-                                            this.state.ContentValid
-                                            || !this.state.showErrors
-                                        }
-                                        AuthorIdValid={
-                                            this.state.AuthorIdValid
-                                            || !this.state.showErrors
-                                        }
-                                        disabled={!this.state.formValid}
-                                        onChange={this.onChange}
-                                        onClick={this.onCreateClicked}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='row'>
-                        <div className='col-12'>
-                            <div className='card-deck'>
-                                <BlogCard
-                                    onBlogClick={this.onGetBlogById}
-                                    blogs={this.state.displayedBlogs}
-                                    onDeleteClick={this.onDeleteBlogClick}
+                <div className='row'>
+                    <div className='col-5'>
+                        <div className='person-form-card'>
+                            <h6 className='card-header'>
+                                Create Blog
+                            </h6>
+                            <div className='card-body'>
+                                <FormErrors
+                                    formErrors={this.state.formErrors}
+                                />
+                                <BlogForm
+                                    {...this.state}
+                                    TitleValid={
+                                        this.state.TitleValid
+                                        || !this.state.showErrors
+                                    }
+                                    ContentValid={
+                                        this.state.ContentValid
+                                        || !this.state.showErrors
+                                    }
+                                    AuthorIdValid={
+                                        this.state.AuthorIdValid
+                                        || !this.state.showErrors
+                                    }
+                                    disabled={!this.state.formValid}
+                                    onChange={this.onChange}
+                                    onClick={this.onCreateClicked}
                                 />
                             </div>
                         </div>
                     </div>
-                    <div className='btn-row row'>
-                        <div className='col-12'>
+                    <div className='col-7'>
+                        <div className='row row-cols-3 row-cols-md-3'>
+                            <BlogCard
+                                onBlogClick={this.onGetBlogById}
+                                blogs={this.state.displayedBlogs}
+                                onDeleteClick={this.onDeleteBlogClick}
+                            />
+                        </div>
+                        <div className='btn-row row'>
                             <PageButtons
                                 onPrevBtnClick={this.onPrevBtnClick}
                                 onNextBtnClick={this.onNextBtnClick}

@@ -66,6 +66,22 @@ class PersonHome extends React.Component {
         )
 
     }
+    onNextBtnClick = props => {
+        var pageIndex = this.state.pageIndex + 1
+        const payload = {
+            pageIndex: pageIndex,
+            pageSize: this.state.pageSize
+        }
+        personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
+    }
+    onPrevBtnClick = props => {
+        var pageIndex = this.state.pageIndex - 1
+        const payload = {
+            pageIndex: pageIndex,
+            pageSize: this.state.pageSize
+        }
+        personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
+    }
     onPersonCreate = evt => {
         const {
             Title,
@@ -108,7 +124,17 @@ class PersonHome extends React.Component {
         }
         personService.insert(payload, this.onCreateSuccess, this.onCreateError)
     }
-
+    onCreateSuccess = resp => {
+        console.log('we created a person!', resp)
+        const payload = {
+            pageIndex: 0,
+            pageSize: this.state.pageSize
+        }
+        personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
+    }
+    onCreateError = err => {
+        console.log('we DIDNT Create a person!', err)
+    }
     onPersonClick = evt => {
         let target = evt.target.name
         personService.kitchenSinkId(target, this.onPersonClickSuccess, this.onPersonClickError)
@@ -145,25 +171,7 @@ class PersonHome extends React.Component {
     onPersonClickError = err => {
         console.log("person click err", err)
     }
-    onCreateSuccess = resp => {
-        console.log('we created a person!', resp)
-        const payload = {
-            pageIndex: 0,
-            pageSize: this.state.pageSize
-        }
-        personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
-    }
-    onCreateError = err => {
-        console.log('we DIDNT Create a person!', err)
-    }
-    onNextBtnClick = props => {
-        var pageIndex = this.state.pageIndex + 1
-        const payload = {
-            pageIndex: pageIndex,
-            pageSize: this.state.pageSize
-        }
-        personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
-    }
+
     onUpdateClick = evt => {
         console.log('begin update', this.state.id)
 
@@ -201,14 +209,7 @@ class PersonHome extends React.Component {
         })
         personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
     }
-    onPrevBtnClick = props => {
-        var pageIndex = this.state.pageIndex - 1
-        const payload = {
-            pageIndex: pageIndex,
-            pageSize: this.state.pageSize
-        }
-        personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
-    }
+
     onGetAllPersonSuccess = resp => {
         console.log('all person success', resp)
         this.setState({
@@ -226,6 +227,24 @@ class PersonHome extends React.Component {
     onGetAllPersonError = err => {
         console.log('kitchen sink ERROR: ', err)
     }
+
+    onDeleteClick = evt => {
+        let id = evt.target.name
+        console.log('delete click ', id)
+        personService.remove(id, this.onRemoveSuccess, this.onRemoveError)
+    }
+    onRemoveSuccess = resp => {
+        console.log('Delete Success')
+        const payload = {
+            pageIndex: 0,
+            pageSize: this.state.pageSize
+        }
+        personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
+    }
+    onRemoveError = resp => {
+        console.log("remove failed")
+    }
+
     componentDidMount() {
         const payload = {
             pageIndex: 0,
@@ -240,7 +259,7 @@ class PersonHome extends React.Component {
                 {!this.state.showProfileView && (
 
                     <div className='row'>
-                        <div className='col-6'>
+                        <div className='col-4'>
                             <div className='row'>
                                 <div className='card person-form-card'>
 
@@ -258,10 +277,11 @@ class PersonHome extends React.Component {
                         {/* </div> */}
                         {/* <div className='row'> */}
 
-                        <div className='col-6'>
-                            <div className='row row-cols-1 row-cols-md-3'>
+                        <div className='col-8'>
+                            <div className='row row-cols-3 row-cols-md-3'>
 
                                 <PersonCard
+                                    onDeleteClick={this.onDeleteClick}
                                     onPersonClick={this.onPersonClick}
                                     people={this.state.displayedPeople}
                                 />
@@ -279,7 +299,7 @@ class PersonHome extends React.Component {
                 )}
                 {this.state.showProfileView && (
                     <div className='row'>
-                        <div className='col-6'>
+                        <div className='col-5 offset-1'>
                             <div className='row'>
                                 <div className='card person-form-card'>
 
@@ -295,7 +315,7 @@ class PersonHome extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className='col-6'>
+                        <div className='col-4'>
                             <PersonProfileCard
                                 {...this.state}
 

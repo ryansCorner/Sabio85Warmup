@@ -63,9 +63,8 @@
 
   .blog-card{
     font-size: smaller;
-    max-width: 25%;
     padding: 0px;
-    margin: 2%;
+    margin: 2px;
   }
   
 
@@ -82,14 +81,32 @@
   flex-wrap: nowrap;
 
 }
+.card-container{
+  background-color: rgb(207, 197, 197, .888);
+
+}
   .person-card{
     font-weight: 700;
-    color: #40833B;
-    background-color: rgb(207, 197, 197, .888);
-    padding: 0px;
-    margin: 2%;
+
+    /* padding: 0px; */
+    margin: 2px;
+  }
+
+  .cust-card-header{
+    -webkit-text-stroke: 1px black;
+    color: white;
+    text-shadow:
+        3px 3px 0 #000,
+      -1px -1px 0 #000,  
+       1px -1px 0 #000,
+       -1px 1px 0 #000,
+        1px 1px 0 #000;
+
   }
   .person-card-img-overlay{
+    padding: 0% !important;
+  }
+  .person-card-body{
     padding: 0% !important;
   }
 
