@@ -2,6 +2,7 @@ import React from 'react'
 import TextInput from '../common/TextInput'
 
 const PersonForm = props => {
+    console.log('form props', props)
     return (
         <React.Fragment>
             <form className='person-form'>
@@ -9,9 +10,10 @@ const PersonForm = props => {
                     <div class="col">
                         <TextInput
                             label="Title"
-                            name="Title"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'title' : "Title"}
                             type="text"
-                            value={props.Title}
+                            value={props.update ? props.title : props.Title}
                             placeholder="Title"
                             onChange={props.onChange}
                             isValid={props.TitleValid}
@@ -21,9 +23,10 @@ const PersonForm = props => {
                     </div><div class="col">
                         <TextInput
                             label="First Name"
-                            name="First"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'first' : "First"}
                             type="text"
-                            value={props.First}
+                            value={props.update ? props.first : props.First}
                             placeholder="First Name"
                             onChange={props.onChange}
                             isValid={props.FirstValid}
@@ -34,9 +37,10 @@ const PersonForm = props => {
                     <div class="col">
                         <TextInput
                             label="Last Name"
-                            name="Last"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'last' : "Last"}
                             type="text"
-                            value={props.Last}
+                            value={props.update ? props.last : props.Last}
                             placeholder="Last Name"
                             onChange={props.onChange}
                             isValid={props.LastValid}
@@ -49,9 +53,10 @@ const PersonForm = props => {
                     <div className="form-group col-md-6">
                         <TextInput
                             label="Email"
-                            name="Email"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'email' : "Email"}
                             type="text"
-                            value={props.Email}
+                            value={props.update ? props.email : props.Email}
                             placeholder="Email"
                             onChange={props.onChange}
                             isValid={props.EmailValid}
@@ -62,9 +67,10 @@ const PersonForm = props => {
                     <div class="form-group col-md-3">
                         <TextInput
                             label="Gender"
-                            name="Gender"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'gender' : "Gender"}
                             type="text"
-                            value={props.Gender}
+                            value={props.update ? props.gender : props.Gender}
                             placeholder="Gender"
                             onChange={props.onChange}
                             isValid={props.GenderValid}
@@ -75,9 +81,10 @@ const PersonForm = props => {
                     <div class="form-group col-md-3">
                         <TextInput
                             label="Date Of Birth"
-                            name="Dob"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'dob' : "Dob"}
                             type="text"
-                            value={props.Dob}
+                            value={props.update ? props.dob : props.Dob}
                             placeholder="12/31/1999"
                             onChange={props.onChange}
                             isValid={props.DobValid}
@@ -90,9 +97,11 @@ const PersonForm = props => {
                     <div class="form-group col-md-4">
                         <TextInput
                             label="Created By"
-                            name="CreatedBy"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'createdBy' : "CreatedBy"}
                             type="text"
-                            value={props.CreatedBy}
+                            readOnly={props.update}
+                            value={props.update ? props.createdBy : props.CreatedBy}
                             placeholder="1-1000"
                             onChange={props.onChange}
                             isValid={props.CreatedByValid}
@@ -103,9 +112,10 @@ const PersonForm = props => {
                     <div class="form-group col-md-4">
                         <TextInput
                             label="Phone Number"
-                            name="Phone"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'phone' : "Phone"}
                             type="text"
-                            value={props.Phone}
+                            value={props.update ? props.phone : props.Phone}
                             placeholder="1-281-330-8004"
                             onChange={props.onChange}
                             isValid={props.PhoneValid}
@@ -116,9 +126,10 @@ const PersonForm = props => {
                     <div class="form-group col-md-4">
                         <TextInput
                             label="Cell Number"
-                            name="Cell"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'cell' : "Cell"}
                             type="text"
-                            value={props.Cell}
+                            value={props.update ? props.cell : props.Cell}
                             placeholder="1-678-999-8212"
                             onChange={props.onChange}
                             isValid={props.CellValid}
@@ -131,9 +142,10 @@ const PersonForm = props => {
                     <div class="form-group col-md-4">
                         <TextInput
                             label="Large"
-                            name="Large"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'large' : "Large"}
                             type="text"
-                            value={props.Large}
+                            value={props.update ? props.large : props.Large}
                             placeholder="Large"
                             onChange={props.onChange}
                             isValid={props.LargeValid}
@@ -144,9 +156,10 @@ const PersonForm = props => {
                     <div class="form-group col-md-4">
                         <TextInput
                             label="Medium"
-                            name="Medium"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'medium' : "Medium"}
                             type="text"
-                            value={props.Medium}
+                            value={props.update ? props.medium : props.Medium}
                             placeholder="Medium"
                             onChange={props.onChange}
                             isValid={props.MediumValid}
@@ -157,9 +170,10 @@ const PersonForm = props => {
                     <div class="form-group col-md-4">
                         <TextInput
                             label="Thumbnail"
-                            name="Thumbnail"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'thumbnail' : "Thumbnail"}
                             type="text"
-                            value={props.Thumbnail}
+                            value={props.update ? props.thumbnail : props.Thumbnail}
                             placeholder="Thumbnail"
                             onChange={props.onChange}
                             isValid={props.ThumbnailValid}
@@ -171,9 +185,10 @@ const PersonForm = props => {
                 <div className="form-group">
                     <TextInput
                         label="Street Address"
-                        name="Street"
+                        showLabel={props.showLabel}
+                        name={props.update ? 'street' : "Street"}
                         type="text"
-                        value={props.Street}
+                        value={props.update ? props.street : props.Street}
                         placeholder="Street Address"
                         onChange={props.onChange}
                         isValid={props.StreetValid}
@@ -185,9 +200,10 @@ const PersonForm = props => {
                     <div className="form-group col-md-5">
                         <TextInput
                             label="City"
-                            name="City"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'city' : "City"}
                             type="text"
-                            value={props.City}
+                            value={props.update ? props.city : props.City}
                             placeholder="City"
                             onChange={props.onChange}
                             isValid={props.CityValid}
@@ -198,36 +214,40 @@ const PersonForm = props => {
                     <div className="form-group col-md-4">
                         <TextInput
                             label="State"
-                            name="State"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'state' : "State"}
                             type="text"
-                            value={props.State}
+                            value={props.update ? props.state : props.State}
                             placeholder="State"
                             onChange={props.onChange}
                             isValid={props.StateValid}
                             defaultValue=''
                             hintText="a name is required"
                         />
-                        {/* <label for="inputState">State</label>
-                        <select id="inputState" className="form-control">
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                        </select> */}
+
                     </div>
                     <div className="form-group col-md-3">
                         <TextInput
                             label="Zip Code"
-                            name="PostalCode"
+                            showLabel={props.showLabel}
+                            name={props.update ? 'postCode' : "PostCode"}
                             type="text"
-                            value={props.PostalCode}
+                            value={props.update ? props.postCode : props.PostCode}
                             placeholder="Zip Code"
                             onChange={props.onChange}
-                            isValid={props.PostalCodeValid}
+                            isValid={props.PostCodeValid}
                             defaultValue=''
                             hintText="a name is required"
                         />
 
                     </div>
                 </div>
+                {props.update && (
+                    <div className=''><button type="button" onClick={props.onUpdateClick} class="btn btn-primary btn-lg btn-block">UPDATE</button></div>
+                )}
+                {!props.update && (
+                    <div className=''><button type="button" onClick={props.onCreate} class="btn btn-primary btn-lg btn-block">SUBMIT</button></div>
+                )}
             </form>
         </React.Fragment>
     )

@@ -6,7 +6,7 @@ const NavBar = props => {
     return (
         <React.Fragment>
 
-            <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: "#CCC1C1" }}>
+            <nav className="navbar navbar-expand-lg navbar-dark fixed-top" style={{ backgroundColor: "#CCC1C1" }}>
                 <a className="navbar-brand nav-text" href="#" onClick={props.loginClick}>
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS7tU1B-D2PVC55t-M71rSVh4J_I0LPakP-9MUE8a_uQQp9gn9M" width="30" height="30" className="d-inline-block align-top" alt="" />
                         Sabio Warmup

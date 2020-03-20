@@ -14,7 +14,6 @@ const ContentRouter = props => {
     var authors = props.authors
     var onChange = props.onChange
     var authbtnclick = props.authbtnclick
-    console.log('content router', authors)
     return (
         <React.Fragment>
             <div className='container-fluid content-router'>

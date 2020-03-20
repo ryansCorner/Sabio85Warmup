@@ -96,3 +96,9 @@
   .person-form-card{
     background-color: rgb(133, 139, 150, 0.85);
   }
+
+  .profile-card-img{
+    border-radius: 70px;
+    max-width: 30vw;
+    max-height: 30vh;
+  }

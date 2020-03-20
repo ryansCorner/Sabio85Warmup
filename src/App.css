@@ -67,3 +67,24 @@ li a:hover {
   color: #114722 !important;
 }
 
+.fixed-footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+ max-height: 8vh;
+  text-align: center;
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+.footer{
+  background-color: rgb(204, 193, 193, 0.9);
+  color: 114722;
+}
+
+.content{
+  padding-top: 10vh;
+  bottom: 8vh;
+}

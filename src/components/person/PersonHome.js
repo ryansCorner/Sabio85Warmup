@@ -5,6 +5,7 @@ import PersonCard from './PersonCard'
 import { CardDeck, CardColumns } from 'reactstrap'
 import PageButtons from '../common/PageButtons'
 import PersonForm from './PersonForm'
+import PersonProfileCard from './profile/PersonProfileCard'
 class PersonHome extends React.Component {
     constructor(props) {
         super(props)
@@ -50,6 +51,7 @@ class PersonHome extends React.Component {
             displayedPeople: [],
             hasPreviousPage: false,
             hasNextPage: false,
+            showProfileView: false,
         }
 
     }
@@ -84,28 +86,72 @@ class PersonHome extends React.Component {
             PostCode,
         } = this.state;
         const payload = {
-            Title: Title,
-            First: First,
-            Last: Last,
             Email: Email,
             Gender: Gender,
             Dob: Dob,
-            CreatedBy: parseInt(CreatedBy, 10),
+            registered: 'null',
             Phone: Phone,
             Cell: Cell,
+            Nat: 'null',
+            HasBeenCloned: false,
+            CreatedBy: parseInt(CreatedBy, 10),
+            Title: Title,
+            First: First,
+            Last: Last,
             Large: Large,
             Medium: Medium,
             Thumbnail: Thumbnail,
             Street: Street,
             City: City,
             State: State,
-            PostCode: PostCode,
+            PostCode: parseInt(PostCode, 10),
         }
         personService.insert(payload, this.onCreateSuccess, this.onCreateError)
     }
 
+    onPersonClick = evt => {
+        let target = evt.target.name
+        personService.kitchenSinkId(target, this.onPersonClickSuccess, this.onPersonClickError)
+    }
+
+    onPersonClickSuccess = resp => {
+        console.log('person Click success', resp)
+        const updatedPerson = delete resp.__proto__
+        this.setState({
+            ...this.state,
+            showProfileView: true,
+            email: resp.email,
+            gender: resp.gender,
+            dob: resp.dob,
+            registered: resp.registered,
+            phone: resp.phone,
+            cell: resp.cell,
+            nat: resp.nat,
+            hasBeenCloned: resp.hasBeenCloned,
+            createdBy: resp.createdBy,
+            id: resp.id,
+            title: resp.title,
+            first: resp.first,
+            last: resp.last,
+            large: resp.large,
+            medium: resp.medium,
+            thumbnail: resp.thumbnail,
+            street: resp.street,
+            city: resp.city,
+            state: resp.state,
+            postCode: resp.postCode
+        })
+    }
+    onPersonClickError = err => {
+        console.log("person click err", err)
+    }
     onCreateSuccess = resp => {
         console.log('we created a person!', resp)
+        const payload = {
+            pageIndex: 0,
+            pageSize: this.state.pageSize
+        }
+        personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
     }
     onCreateError = err => {
         console.log('we DIDNT Create a person!', err)
@@ -118,7 +164,43 @@ class PersonHome extends React.Component {
         }
         personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
     }
+    onUpdateClick = evt => {
+        console.log('begin update', this.state.id)
 
+        const payload = {
+            email: this.state.email,
+            gender: this.state.gender,
+            dob: this.state.dob,
+            registered: 'null',
+            phone: this.state.phone,
+            cell: this.state.cell,
+            nat: 'null',
+            hasBeenCloned: this.state.hasBeenCloned,
+            title: this.state.title,
+            first: this.state.first,
+            last: this.state.last,
+            large: this.state.large,
+            medium: this.state.medium,
+            thumbnail: this.state.thumbnail,
+            street: this.state.street,
+            city: this.state.city,
+            state: this.state.state,
+            postCode: parseInt(this.state.postCode, 10)
+        }
+        personService.updateFull(this.state.id, payload, this.updateFullSuccess, this.updateFullError)
+    }
+
+    updateFullSuccess = resp => {
+        console.log('we updated a person', resp)
+        const payload = {
+            pageIndex: 0,
+            pageSize: this.state.pageSize
+        }
+        this.setState({
+            showProfileView: false,
+        })
+        personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
+    }
     onPrevBtnClick = props => {
         var pageIndex = this.state.pageIndex - 1
         const payload = {
@@ -128,7 +210,7 @@ class PersonHome extends React.Component {
         personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
     }
     onGetAllPersonSuccess = resp => {
-        console.log('kitchen sink: ', resp)
+        console.log('all person success', resp)
         this.setState({
             ...this.state,
             pageIndex: resp.pageIndex,
@@ -138,6 +220,7 @@ class PersonHome extends React.Component {
             displayedPeople: resp.pagedItems,
             hasPreviousPage: resp.hasPreviousPage,
             hasNextPage: resp.hasNextPage
+
         })
     }
     onGetAllPersonError = err => {
@@ -151,41 +234,76 @@ class PersonHome extends React.Component {
         personService.kitchenSinkAll(payload, this.onGetAllPersonSuccess, this.onGetAllPersonError)
     }
     render() {
+        console.log(this.state)
         return (
             <React.Fragment>
-                <div className='row'>
-                    <div className='col-6'>
-                        <div className='row'>
-                            <div className='card person-form-card'>
+                {!this.state.showProfileView && (
 
-                                <div className='person-row'>
-                                    <PersonForm
-                                        onChange={this.onChange}
-                                        {...this.state}
-                                    />
+                    <div className='row'>
+                        <div className='col-6'>
+                            <div className='row'>
+                                <div className='card person-form-card'>
+
+                                    <div className='person-row'>
+                                        <PersonForm
+                                            showLabel='true'
+                                            onCreate={this.onPersonCreate}
+                                            onChange={this.onChange}
+                                            {...this.state}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {/* </div> */}
-                    {/* <div className='row'> */}
-                    <div className='col-6'>
-                        <div className='row row-cols-1 row-cols-md-2'>
+                        {/* </div> */}
+                        {/* <div className='row'> */}
 
-                            <PersonCard
-                                people={this.state.displayedPeople}
-                            />
+                        <div className='col-6'>
+                            <div className='row row-cols-1 row-cols-md-3'>
+
+                                <PersonCard
+                                    onPersonClick={this.onPersonClick}
+                                    people={this.state.displayedPeople}
+                                />
+                            </div>
+                            <div className='btn-row row'>
+                                <PageButtons
+                                    onPrevBtnClick={this.onPrevBtnClick}
+                                    onNextBtnClick={this.onNextBtnClick}
+                                    hasPreviousPage={this.state.hasPreviousPage}
+                                    hasNextPage={this.state.hasNextPage}
+                                />
+                            </div>
                         </div>
-                        <div className='btn-row row'>
-                            <PageButtons
-                                onPrevBtnClick={this.onPrevBtnClick}
-                                onNextBtnClick={this.onNextBtnClick}
-                                hasPreviousPage={this.state.hasPreviousPage}
-                                hasNextPage={this.state.hasNextPage}
+                    </div>
+                )}
+                {this.state.showProfileView && (
+                    <div className='row'>
+                        <div className='col-6'>
+                            <div className='row'>
+                                <div className='card person-form-card'>
+
+                                    <div className='person-row'>
+                                        <PersonForm
+                                            // {...this.state.updatePersonObj}
+                                            update='true'
+                                            onUpdateClick={this.onUpdateClick}
+                                            onChange={this.onChange}
+                                            {...this.state}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='col-6'>
+                            <PersonProfileCard
+                                {...this.state}
+
+                            // updatedPersonObj={this.state.updatePersonObj}
                             />
                         </div>
                     </div>
-                </div>
+                )}
             </React.Fragment>
         )
     }

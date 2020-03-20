@@ -3,10 +3,13 @@ import React from 'react'
 const TextInput = props => {
     return (
         <div className="form-group" htmlFor={props.name}>
-            <label className="form-label" htmlFor={props.name}>
-                {props.label}
-            </label>
+            {props.showLabel && (
+                <label className="form-label" htmlFor={props.name}>
+                    {props.label}
+                </label>
+            )}
             <input
+                readOnly={props.readOnly}
                 index={props.index}
                 className={`form-control ${props.isValid ? "" : "is-invalid"}`}
                 id={props.id}
@@ -18,7 +21,7 @@ const TextInput = props => {
                 disabled={props.disabled}
             // defaultValue={props.defaultValue}
             />
-            <div className="invalid-feedback">{props.hintText}</div>
+            {/* <div className="invalid-feedback">{props.hintText}</div> */}
         </div>
     )
 }

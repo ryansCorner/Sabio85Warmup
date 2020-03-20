@@ -8,6 +8,7 @@ import authorCards from '../authorCards'
 import AuthorCards from '../author/AuthorCards'
 import BlogsHome from '../blogs/BlogsHome'
 import { Container } from 'reactstrap'
+import Footer from './Footer'
 
 
 class Layout extends React.Component {
@@ -65,14 +66,15 @@ class Layout extends React.Component {
         // console.log(this.state.authors)
         return (
             <React.Fragment>
-                <Container>
+                {/* <Container> */}
+                <div className='layout-container container-fluid'>
 
                     <div>
                         <NavBar
                             loggedIn={this.state.loggedIn}
                             loginClick={this.onLoginBtnClick} />
                     </div>
-                    <div>
+                    <div className='content'>
                         {/* <BlogsHome /> */}
                         {/* <AuthorCards /> */}
                         {/* <authorCards /> */}
@@ -84,7 +86,11 @@ class Layout extends React.Component {
                                 authbtnclick={this.onProfileBtnClick} />
                         )}
                     </div>
-                </Container>
+                    <div className='fixed-footer position-fixed'>
+                        <Footer />
+                    </div>
+                </div>
+                {/* </Container> */}
             </React.Fragment>
         )
     }

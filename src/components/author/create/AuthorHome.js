@@ -402,7 +402,7 @@ class AuthorHome extends React.Component {
                 {this.state.displayedAuthors && !this.state.profileClick && (
                     <div className='row'>
 
-                        {/* <div className='col-5'>
+                        <div className='col-5'>
                             <div className='authorFormCard'>
                                 <h6 className='card-header'>
                                     Create Author
@@ -439,16 +439,16 @@ class AuthorHome extends React.Component {
                                     />
                                 </div>
                             </div>
-                        </div> */}
+                        </div>
                         <div className='col-auto'>
                             <div className='row'>
                                 <div className='person-card-container card-deck'>
 
-                                        <AuthorCards
-                                            onDeleteClicked={this.onDeleteClicked}
-                                            authors={this.state.displayedAuthors}
-                                            onProfileClick={this.onAuthorProfileClick}
-                                            onClick={this.onGetAuthorProfileClick} />
+                                    <AuthorCards
+                                        onDeleteClicked={this.onDeleteClicked}
+                                        authors={this.state.displayedAuthors}
+                                        onProfileClick={this.onAuthorProfileClick}
+                                        onClick={this.onGetAuthorProfileClick} />
 
                                 </div>
                             </div>

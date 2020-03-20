@@ -4,7 +4,7 @@ import axios from 'axios'
 const insert = (payload, onSuccess, onError) => {
     const config = {
         method: "Post",
-        url: 'https://localhost:50001/api/person',
+        url: 'https://localhost:50001/api/person/fullpost',
         data: payload,
         withCredentials: true,
         crossdomain: true,
@@ -99,7 +99,22 @@ const kitchenSinkId = (payload, onSuccess, onError) => {
         headers: { "Content-Type": "application/json" }
     }
     return axios(config)
+        .then(response => onSuccess(response.data.item))
+        .catch(err => onError(err))
+}
+
+const updateFull = (id, payload, onSuccess, onError) => {
+    console.log('update', id, payload)
+    const config = {
+        method: "Put",
+        url: `https://localhost:50001/api/person/fullUpdate${id}`,
+        data: payload,
+        withCredentials: true,
+        crossdomain: true,
+        headers: { "Content-Type": "application/json" }
+    }
+    return axios(config)
         .then(response => onSuccess(response))
         .catch(err => onError(err))
 }
-export { insert, getById, getAllPages, update, remove, kitchenSinkAll, kitchenSinkId }
+export { insert, getById, getAllPages, update, updateFull, remove, kitchenSinkAll, kitchenSinkId }
